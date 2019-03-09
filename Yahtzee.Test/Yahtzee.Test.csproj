@@ -59,8 +59,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Yahtzee.Biz\Yahtzee.Biz.csproj">
-      <Project>{943beb2d-9ed2-4d38-b6cd-54d5dae97427}</Project>
+    <ProjectReference Include="..\Yahtzee.Biz\Yahtzee.Biz.csproj">
+      <Project>{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}</Project>
       <Name>Yahtzee.Biz</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yahtzee.Models\Yahtzee.Models.csproj">

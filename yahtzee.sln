@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.Biz", "..\Yahtzee.Biz\Yahtzee.Biz.csproj", "{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.Test", "Yahtzee.Test\Yahtzee.Test.csproj", "{D8965251-CBC3-4997-9CCE-A7B9D18A181A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee", "Yahtzee\Yahtzee.csproj", "{7BBA949A-4E14-4EAD-9EA6-7865C625D3DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.Models", "Yahtzee.Models\Yahtzee.Models.csproj", "{81760B87-00F7-4247-A230-8E9F0EACB3A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.Biz", "Yahtzee.Biz\Yahtzee.Biz.csproj", "{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8965251-CBC3-4997-9CCE-A7B9D18A181A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8965251-CBC3-4997-9CCE-A7B9D18A181A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8965251-CBC3-4997-9CCE-A7B9D18A181A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{81760B87-00F7-4247-A230-8E9F0EACB3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81760B87-00F7-4247-A230-8E9F0EACB3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81760B87-00F7-4247-A230-8E9F0EACB3A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
