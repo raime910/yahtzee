@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Yahtzee.Biz;
 using Yahtzee.Models;
 
@@ -13,45 +14,11 @@ namespace Yahtzee
         /// <param name="args">The arguments.</param>
         private static void Main(string[] args)
         {
-            var playerCount = SetupPlayerCount();
-
             var game = new Game();
 
-            game.Initialize(new List<Player>
-            {
-                new HumanPlayer("John"),
-                new ComputerPlayer("Yoda")
-            });
+            game.Initialize(new[] { "John" }, new[] { "Jane" });
 
             game.Play();
-        }
-
-        /// <summary>
-        /// Setups the player count.
-        /// </summary>
-        /// <returns></returns>
-        private static (int humans, int computer) SetupPlayerCount()
-        {
-            var humansCount = 0;
-            var computersCount = 0;
-
-            Console.WriteLine($"Please enter the number of human players");
-
-            do
-            {
-                int.TryParse(Console.ReadLine(), out humansCount);
-            }
-            while (humansCount == 0);
-
-            Console.WriteLine($"Please enter the number of computer players");
-
-            do
-            {
-                int.TryParse(Console.ReadLine(), out computersCount);
-            }
-            while (computersCount == 0);
-
-            return (humansCount, computersCount);
         }
 
         /// <summary>

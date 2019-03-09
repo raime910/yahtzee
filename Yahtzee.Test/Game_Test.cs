@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.Linq;
 using Yahtzee.Biz;
-using Yahtzee.Models;
 
 namespace Yahtzee.Test
 {
@@ -10,17 +8,23 @@ namespace Yahtzee.Test
     public class Game_Test
     {
         [TestMethod]
-        public void Game_DuplicatePlayerName_ShouldNotAllowed()
+        public void Game_DuplicatePlayerName_ShouldNotBeAllowed()
         {
             var game = new Game();
 
-            game.Initialize(new List<Player>
-            {
-                new HumanPlayer("John"),
-                new HumanPlayer("John")
-            });
+            game.Initialize(new[] { "John", "John" }, new[] { "Jane", "Jane" });
 
-            Assert.IsTrue(game.Players.Count == 1);
+            Assert.IsTrue(game.Players.Count == 2);
+        }
+
+        [TestMethod]
+        public void Game_DuplicatePlayerNameBetweenHumanAndComps_AreOK()
+        {
+            var game = new Game();
+
+            game.Initialize(new[] { "John", "Jane" }, new[] { "John", "Jane" });
+
+            Assert.IsTrue(game.Players.Count == 4);
         }
 
         [TestMethod]
@@ -28,11 +32,7 @@ namespace Yahtzee.Test
         {
             var game = new Game();
 
-            game.Initialize(new List<Player>
-            {
-                new HumanPlayer("John"),
-                new HumanPlayer("Jane")
-            });
+            game.Initialize(new[] { "John", "Jane" });
 
             Assert.IsTrue(game.Players.Count == 2);
             Assert.IsTrue(game.Players.ElementAt(0).Turn.Dice.Any());
@@ -44,11 +44,7 @@ namespace Yahtzee.Test
         {
             var game = new Game();
 
-            game.Initialize(new List<Player>
-            {
-                new HumanPlayer("John"),
-                new HumanPlayer("Jane")
-            });
+            game.Initialize(new[] { "John", "Jane" });
 
             game.Play();
 

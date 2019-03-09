@@ -12,6 +12,9 @@ namespace Yahtzee.Biz
     {
         #region Members
 
+        /// <summary>
+        /// The state of the game object.
+        /// </summary>
         private GameState _state;
 
         #endregion Members
@@ -50,14 +53,58 @@ namespace Yahtzee.Biz
             }
             set
             {
-                Console.WriteLine($"Changing game state to {value}.");
                 this._state = value;
+                Console.WriteLine($"Game state changed to {value}.");
             }
         }
 
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// Initializes the specified human names.
+        /// </summary>
+        /// <param name="humanNames">The human names.</param>
+        /// <param name="compNames">The comp names.</param>
+        public void Initialize(IEnumerable<string> humanNames, IEnumerable<string> compNames = null)
+        {
+            foreach (var name in humanNames.Distinct())
+            {
+                var player = new HumanPlayer(name);
+
+                InitializePlayer(
+                    GameConfiguration.NUMBER_OF_TURNS_PER_GAME,
+                    GameConfiguration.NUMBER_OF_DICE_PER_TURN,
+                    player);
+
+                this.Players.Add(player);
+
+                Console.WriteLine($"Player {player.Name} is now ready to play!");
+            }
+
+            if (compNames == null)
+            {
+                Console.WriteLine($"No computer players to initialize. Let's continue...");
+                return;
+            }
+
+            foreach (var name in compNames.Distinct())
+            {
+                var player = new ComputerPlayer(name);
+
+                InitializePlayer(
+                    GameConfiguration.NUMBER_OF_TURNS_PER_GAME,
+                    GameConfiguration.NUMBER_OF_DICE_PER_TURN,
+                    player);
+
+                this.Players.Add(player);
+
+                Console.WriteLine($"Player {player.Name} is now ready to play!");
+            }
+
+            this.State = GameState.Initialized;
+        }
 
         /// <summary>
         /// Initializes the player.
@@ -79,31 +126,6 @@ namespace Yahtzee.Biz
         }
 
         /// <summary>
-        /// Initializes the specified players.
-        /// </summary>
-        /// <param name="players">The players.</param>
-        public void Initialize(IEnumerable<Player> players)
-        {
-            foreach (var player in players.ToList())
-            {
-                if (this.Players.Any(x => x.Name == player.Name))
-                {
-                    continue;
-                }
-
-                InitializePlayer(
-                    GameConfiguration.NUMBER_OF_TURNS_PER_GAME,
-                    GameConfiguration.NUMBER_OF_DICE_PER_TURN,
-                    player);
-
-                this.Players.Add(player);
-                Console.WriteLine($"Player {player.Name} is now ready to play!");
-            }
-
-            this.State = GameState.Initialized;
-        }
-
-        /// <summary>
         /// Initializes the players then starts the game.
         /// </summary>
         public void Play()
@@ -114,6 +136,7 @@ namespace Yahtzee.Biz
             }
 
             this.State = GameState.Playing;
+
             Console.WriteLine("The game has started!");
         }
 
