@@ -20,6 +20,10 @@ namespace Yahtzee.Models
         {
         }
 
+        /// <summary>
+        /// Executes the player's turn.
+        /// </summary>
+        /// <param name="setPick">Delegate for setting user pick (testability purpose).</param>
         public override void ExecuteTurn(Func<Turn, string> setPick)
         {
             this.Turn.RollDice();

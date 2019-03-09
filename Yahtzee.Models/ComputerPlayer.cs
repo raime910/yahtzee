@@ -33,9 +33,13 @@ namespace Yahtzee.Models
             this.Turn.RollDice();
         }
 
+        /// <summary>
+        /// Executes the player's turn.
+        /// </summary>
+        /// <param name="setPick">Delegate for setting computer pick (testability purpose).</param>
         public override void ExecuteTurn(Func<Turn, string> setPick)
         {
-            throw new NotImplementedException();
+            this.Turn.RollDice();
         }
 
         #endregion Methods
