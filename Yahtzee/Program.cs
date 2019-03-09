@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Yahtzee.Biz;
 using Yahtzee.Models;
 
@@ -18,7 +17,7 @@ namespace Yahtzee
 
             game.Initialize(new[] { "John" }, new[] { "Jane" });
 
-            game.Play();
+            game.Play((turn) => { return Console.ReadLine(); });
 
             Console.ReadKey();
         }

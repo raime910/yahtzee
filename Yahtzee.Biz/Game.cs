@@ -81,9 +81,10 @@ namespace Yahtzee.Biz
         }
 
         /// <summary>
-        /// Initializes the players then starts the game.
+        /// Plays the specified set pick.
         /// </summary>
-        public void Play()
+        /// <param name="setPick">The set pick.</param>
+        public void Play(Func<Turn, string> setPick)
         {
             if (this.State != GameState.Initialized)
             {
@@ -98,24 +99,7 @@ namespace Yahtzee.Biz
             {
                 while (player.Turn.CanRoll)
                 {
-                    player.Turn.RollRemainingDice();
-
-                    var picks = player.Turn.GetAvailablePicks();
-
-                    if (player.Turn.GetAvailablePicks().Count > 1)
-                    {
-                        Console.WriteLine($"{player.Name}, pick a number from these [{string.Join(",", picks)}]");
-
-                        // Make sure the user picked a number and is a valid option
-                        while (int.TryParse(Console.ReadLine(), out var pick) && picks.Contains(pick))
-                        {
-                            player.Turn.SetPick(pick);
-                        }
-                    }
-                    else
-                    {
-                        player.Turn.SetPick(picks.First());
-                    }
+                    player.ExecuteTurn(setPick);
                 }
             }
         }

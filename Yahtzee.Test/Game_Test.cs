@@ -44,7 +44,7 @@ namespace Yahtzee.Test
             var game = new Game();
 
             game.Initialize(new[] { "John", "Jane" });
-            game.Play();
+            game.Play((turn) => { return turn.GetAvailablePicks().First().ToString(); });
 
             Assert.IsTrue(game.Players.Count == 2);
             Assert.IsTrue(game.State == GameState.Playing);

@@ -30,7 +30,12 @@ namespace Yahtzee.Models
         public void ExecuteTurn()
         {
             Console.WriteLine($"Player {this.Name} roll ");
-            this.Turn.RollRemainingDice();
+            this.Turn.RollDice();
+        }
+
+        public override void ExecuteTurn(Func<Turn, string> setPick)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Methods

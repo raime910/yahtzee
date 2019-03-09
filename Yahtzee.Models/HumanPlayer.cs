@@ -1,4 +1,7 @@
-﻿namespace Yahtzee.Models
+﻿using System;
+using System.Linq;
+
+namespace Yahtzee.Models
 {
     /// <summary>
     /// Class that represents a Human player.
@@ -15,6 +18,32 @@
         public HumanPlayer(string name)
             : base(name)
         {
+        }
+
+        public override void ExecuteTurn(Func<Turn, string> setPick)
+        {
+            this.Turn.RollDice();
+
+            if (this.Turn.RollCount == 1)
+            {
+                var picks = this.Turn.GetAvailablePicks();
+
+                // If available picks > 1, ask user which number he/she wants to match after this turn.
+                if (picks.Count > 1)
+                {
+                    Console.WriteLine($"{this.Name}, pick a number from these [{string.Join(",", picks)}]");
+
+                    // Make sure the user picked a number and is a valid option
+                    while (int.TryParse(setPick(this.Turn), out var pick) && picks.Contains(pick))
+                    {
+                        this.Turn.SetPick(pick);
+                    }
+                }
+                else
+                {
+                    this.Turn.SetPick(picks.First());
+                }
+            }
         }
 
         #endregion Ctor

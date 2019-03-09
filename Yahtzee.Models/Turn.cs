@@ -102,7 +102,7 @@ namespace Yahtzee.Models
         /// <summary>
         /// Rolls the remaining dice.
         /// </summary>
-        public void RollRemainingDice()
+        public void RollDice()
         {
             if (!this.CanRoll)
             {
@@ -136,6 +136,11 @@ namespace Yahtzee.Models
         /// </value>
         public List<int> GetAvailablePicks()
         {
+            if (this.RollCount > 1)
+            {
+                return new List<int>();
+            }
+
             if (this._resultsPerRoll.Any())
             {
                 // Setup grouping for this roll.

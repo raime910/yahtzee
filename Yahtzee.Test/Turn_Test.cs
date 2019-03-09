@@ -42,7 +42,7 @@ namespace Yahtzee.Test
             turn.Dice.Add(new Die());
             turn.Dice.Add(new Die());
 
-            turn.RollRemainingDice();
+            turn.RollDice();
 
             var pick = turn.GetAvailablePicks().First();
 
@@ -78,7 +78,7 @@ namespace Yahtzee.Test
             turn.Dice.Add(new Die());
             turn.Dice.Add(new Die());
 
-            turn.RollRemainingDice();
+            turn.RollDice();
             var result = turn.GetAvailablePicks();
 
             Assert.IsTrue(result.Count > 0);
@@ -95,13 +95,13 @@ namespace Yahtzee.Test
             turn.Dice.Add(new Die());
             turn.Dice.Add(new Die());
 
-            turn.RollRemainingDice();
+            turn.RollDice();
 
             var pick = turn.GetAvailablePicks().First();
             turn.SetPick(pick);
 
-            turn.RollRemainingDice();
-            turn.RollRemainingDice();
+            turn.RollDice();
+            turn.RollDice();
 
             Assert.IsTrue(turn.GetScore() > 0);
         }
@@ -117,11 +117,11 @@ namespace Yahtzee.Test
             turn.Dice.Add(new Die());
             turn.Dice.Add(new Die());
 
-            turn.RollRemainingDice();
-            turn.RollRemainingDice();
-            turn.RollRemainingDice();
-            turn.RollRemainingDice();
-            turn.RollRemainingDice();
+            turn.RollDice();
+            turn.RollDice();
+            turn.RollDice();
+            turn.RollDice();
+            turn.RollDice();
 
             Assert.AreEqual(turn.RollCount, 2);
         }

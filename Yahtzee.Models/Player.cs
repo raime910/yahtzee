@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Yahtzee.Models
@@ -59,6 +60,11 @@ namespace Yahtzee.Models
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// Executes the player's turn.
+        /// </summary>
+        public abstract void ExecuteTurn(Func<Turn, string> setPick);
 
         /// <summary>
         /// Gets the current turn score.
