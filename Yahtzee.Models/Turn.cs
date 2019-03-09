@@ -14,7 +14,7 @@ namespace Yahtzee.Models
         /// <summary>
         /// The maximum number rolls per turn.
         /// </summary>
-        private const int _MAX_ROLLS_PER_TURN = 3;
+        private const int _MAX_ROLLS_PER_TURN = 2;
 
         #endregion Constants
 
@@ -39,7 +39,13 @@ namespace Yahtzee.Models
         /// </summary>
         public Turn()
         {
-            this._dice = new List<Die>();
+            this._dice = new List<Die> {
+                new Die(),
+                new Die(),
+                new Die(),
+                new Die(),
+                new Die()
+            };
             this._resultsPerRoll = new Dictionary<int, IEnumerable<int>>();
         }
 
@@ -108,7 +114,6 @@ namespace Yahtzee.Models
 
             foreach (var die in this.Dice.Where(x => !x.IsPicked))
             {
-                Console.WriteLine($"Rolling {this.RollCount} of 3 with {this.Dice.Count(x => !x.IsPicked)} die left.");
                 die.Roll();
 
                 /* Add result of this roll within the collection
@@ -134,7 +139,7 @@ namespace Yahtzee.Models
             if (this._resultsPerRoll.Any())
             {
                 // Setup grouping for this roll.
-                var query = from value in this._resultsPerRoll.First().Value
+                var query = from value in this._resultsPerRoll.ElementAt(this.RollCount - 1).Value
                             group value by value into grouping // Set grouping by die value
                             let groupCount = grouping.Count()  // Count each item per grouping
                             orderby groupCount descending      // Set result order by desc
@@ -147,11 +152,14 @@ namespace Yahtzee.Models
                 // Identify max occurence within the collection of values from the first roll.
                 var maxScore = query.Select(x => x.count).Max();
 
-                // Return the die values with the most number of occurences.
-                return query
+                // Return the value(s) with the most number of occurences.
+                var result = query
                     .Where(x => x.count == maxScore)
                     .Select(x => x.value)
+                    .OrderBy(x => x)
                     .ToList();
+
+                return result;
             }
 
             Console.WriteLine("Player needs to roll the dice first.");

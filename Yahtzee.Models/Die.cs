@@ -7,12 +7,6 @@ namespace Yahtzee.Models
     /// </summary>
     public class Die
     {
-        #region Members
-
-        private static Random _Random = new Random();
-
-        #endregion Members
-
         #region Properties
 
         /// <summary>
@@ -40,7 +34,7 @@ namespace Yahtzee.Models
         /// </summary>
         public void Roll()
         {
-            this.Value = _Random.Next(1, 6);
+            this.Value = Randomizer.Instance.GenerateValue(1, 6);
         }
 
         /// <summary>

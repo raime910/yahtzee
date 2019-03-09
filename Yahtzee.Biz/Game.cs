@@ -71,6 +71,7 @@ namespace Yahtzee.Biz
         {
             this.Players.AddRange(humanNames.Distinct().Select(x => new HumanPlayer(x)));
 
+            // Check if there are any computer players, if not do not add any computer player.
             if (compNames != null)
             {
                 this.Players.AddRange(compNames.Distinct().Select(x => new ComputerPlayer(x)));
@@ -91,11 +92,32 @@ namespace Yahtzee.Biz
 
             this.State = GameState.Playing;
 
+            Console.WriteLine("The game has started!");
+
             foreach (var player in this.Players)
             {
-            }
+                while (player.Turn.CanRoll)
+                {
+                    player.Turn.RollRemainingDice();
 
-            Console.WriteLine("The game has started!");
+                    var picks = player.Turn.GetAvailablePicks();
+
+                    if (player.Turn.GetAvailablePicks().Count > 1)
+                    {
+                        Console.WriteLine($"{player.Name}, pick a number from these [{string.Join(",", picks)}]");
+
+                        // Make sure the user picked a number and is a valid option
+                        while (int.TryParse(Console.ReadLine(), out var pick) && picks.Contains(pick))
+                        {
+                            player.Turn.SetPick(pick);
+                        }
+                    }
+                    else
+                    {
+                        player.Turn.SetPick(picks.First());
+                    }
+                }
+            }
         }
 
         /// <summary>

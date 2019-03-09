@@ -123,7 +123,7 @@ namespace Yahtzee.Test
             turn.RollRemainingDice();
             turn.RollRemainingDice();
 
-            Assert.AreEqual(turn.RollCount, 3);
+            Assert.AreEqual(turn.RollCount, 2);
         }
     }
 }

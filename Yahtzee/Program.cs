@@ -19,6 +19,8 @@ namespace Yahtzee
             game.Initialize(new[] { "John" }, new[] { "Jane" });
 
             game.Play();
+
+            Console.ReadKey();
         }
 
         /// <summary>
