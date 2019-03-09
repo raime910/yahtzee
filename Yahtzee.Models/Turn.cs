@@ -71,6 +71,24 @@ namespace Yahtzee.Models
             get; private set;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance can roll.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance can roll; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanRoll
+        {
+            get
+            {
+                /* Check and make sure that
+                 * 1. The player still has a roll remaining within this turn
+                 * 2. The player still has some dice left to roll.
+                 */
+                return this.RollCount < _MAX_ROLLS_PER_TURN && this.Dice.Any(x => !x.IsPicked);
+            }
+        }
+
         #endregion Properties
 
         #region Methods
@@ -80,11 +98,7 @@ namespace Yahtzee.Models
         /// </summary>
         public void RollRemainingDice()
         {
-            /* Check and make sure that
-             * 1. The player still has a roll remaining within this turn
-             * 2. The player still has some dice left to roll.
-             */
-            if (this.RollCount == _MAX_ROLLS_PER_TURN || !this.Dice.Any(x => !x.IsPicked))
+            if (!this.CanRoll)
             {
                 Console.WriteLine($"This turn has reached its max roll count or has no more dice left to roll.");
                 return;

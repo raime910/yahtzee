@@ -35,8 +35,7 @@ namespace Yahtzee.Test
             game.Initialize(new[] { "John", "Jane" });
 
             Assert.IsTrue(game.Players.Count == 2);
-            Assert.IsTrue(game.Players.ElementAt(0).Turn.Dice.Any());
-            Assert.IsTrue(game.Players.ElementAt(1).Turn.Dice.Any());
+            Assert.IsTrue(game.State == GameState.Initialized);
         }
 
         [TestMethod]
@@ -45,9 +44,9 @@ namespace Yahtzee.Test
             var game = new Game();
 
             game.Initialize(new[] { "John", "Jane" });
-
             game.Play();
 
+            Assert.IsTrue(game.Players.Count == 2);
             Assert.IsTrue(game.State == GameState.Playing);
         }
     }

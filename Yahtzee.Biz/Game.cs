@@ -69,60 +69,14 @@ namespace Yahtzee.Biz
         /// <param name="compNames">The comp names.</param>
         public void Initialize(IEnumerable<string> humanNames, IEnumerable<string> compNames = null)
         {
-            foreach (var name in humanNames.Distinct())
+            this.Players.AddRange(humanNames.Distinct().Select(x => new HumanPlayer(x)));
+
+            if (compNames != null)
             {
-                var player = new HumanPlayer(name);
-
-                InitializePlayer(
-                    GameConfiguration.NUMBER_OF_TURNS_PER_GAME,
-                    GameConfiguration.NUMBER_OF_DICE_PER_TURN,
-                    player);
-
-                this.Players.Add(player);
-
-                Console.WriteLine($"Player {player.Name} is now ready to play!");
-            }
-
-            if (compNames == null)
-            {
-                Console.WriteLine($"No computer players to initialize. Let's continue...");
-                return;
-            }
-
-            foreach (var name in compNames.Distinct())
-            {
-                var player = new ComputerPlayer(name);
-
-                InitializePlayer(
-                    GameConfiguration.NUMBER_OF_TURNS_PER_GAME,
-                    GameConfiguration.NUMBER_OF_DICE_PER_TURN,
-                    player);
-
-                this.Players.Add(player);
-
-                Console.WriteLine($"Player {player.Name} is now ready to play!");
+                this.Players.AddRange(compNames.Distinct().Select(x => new ComputerPlayer(x)));
             }
 
             this.State = GameState.Initialized;
-        }
-
-        /// <summary>
-        /// Initializes the player.
-        /// </summary>
-        /// <param name="numberOfTurns">The number of turns.</param>
-        /// <param name="numberOfDicePerTurn">The number of dice per turn.</param>
-        /// <param name="player">The player.</param>
-        private void InitializePlayer(int numberOfTurns, int numberOfDicePerTurn, Player player)
-        {
-            // Add turns
-            for (int i = 0; i < numberOfTurns; i++)
-            {
-                // Add die within each turn
-                for (int j = 0; j < numberOfDicePerTurn; j++)
-                {
-                    player.Turn.Dice.Add(new Die());
-                }
-            }
         }
 
         /// <summary>
@@ -136,6 +90,10 @@ namespace Yahtzee.Biz
             }
 
             this.State = GameState.Playing;
+
+            foreach (var player in this.Players)
+            {
+            }
 
             Console.WriteLine("The game has started!");
         }
