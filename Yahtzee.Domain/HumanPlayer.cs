@@ -20,6 +20,10 @@ namespace Yahtzee.Domain
         {
         }
 
+        #endregion Ctor
+
+        #region Methods
+
         /// <summary>
         /// Executes the player's turn.
         /// </summary>
@@ -50,6 +54,6 @@ namespace Yahtzee.Domain
             }
         }
 
-        #endregion Ctor
+        #endregion Methods
     }
 }
