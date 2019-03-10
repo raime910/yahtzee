@@ -17,7 +17,6 @@ namespace Yahtzee.Domain
         public Player(string name, bool isComputer = false)
         {
             this.Turn = new Turn();
-
             this.Name = name;
             this.IsComputer = isComputer;
         }
