@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Yahtzee.Biz;
-using Yahtzee.Models;
+using Yahtzee.Domain;
 
 namespace Yahtzee
 {

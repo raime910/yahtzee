@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Yahtzee.Models
+namespace Yahtzee.Domain
 {
     /// <summary>
     /// Class that represents a Human player.

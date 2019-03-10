@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yahtzee.Models;
+using Yahtzee.Domain;
 
 namespace Yahtzee.Test
 {

@@ -54,13 +54,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yahtzee.Biz\Yahtzee.Biz.csproj">
-      <Project>{943BEB2D-9ED2-4D38-B6CD-54D5DAE97427}</Project>
-      <Name>Yahtzee.Biz</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Yahtzee.Models\Yahtzee.Models.csproj">
-      <Project>{81760b87-00f7-4247-a230-8e9f0eacb3a4}</Project>
-      <Name>Yahtzee.Models</Name>
+    <ProjectReference Include="..\Yahtzee.Domain\Yahtzee.Domain.csproj">
+      <Project>{8E022CD1-9FD7-46E3-9301-1BAB092065AD}</Project>
+      <Name>Yahtzee.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

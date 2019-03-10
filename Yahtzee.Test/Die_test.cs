@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yahtzee.Models;
+using Yahtzee.Domain;
 
 namespace Yahtzee.Test
 {
@@ -20,7 +20,7 @@ namespace Yahtzee.Test
         {
             var die = new Die();
             die.Roll();
-            die.PickMe();
+            die.IsPicked = true;
 
             Assert.IsTrue(die.IsPicked);
         }
@@ -29,7 +29,6 @@ namespace Yahtzee.Test
         public void Die_PickMe_BeforeRoll_ShouldNotSetFlag()
         {
             var die = new Die();
-            die.PickMe();
 
             Assert.IsFalse(die.IsPicked);
         }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using Yahtzee.Biz;
+using Yahtzee.Domain;
 
 namespace Yahtzee.Test
 {
@@ -44,7 +44,10 @@ namespace Yahtzee.Test
             var game = new Game();
 
             game.Initialize(new[] { "John", "Jane" });
-            game.Play((turn) => { return turn.GetAvailablePicks().First().ToString(); });
+            game.Play((turn) =>
+            {
+                return turn.GetAvailablePicks().First().ToString();
+            });
 
             Assert.IsTrue(game.Players.Count == 2);
             Assert.IsTrue(game.State == GameState.Playing);

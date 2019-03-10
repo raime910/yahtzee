@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yahtzee.Models
+namespace Yahtzee.Domain
 {
     /// <summary>
     /// Represents a die within a turn.

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yahtzee.Models;
 
-namespace Yahtzee.Biz
+namespace Yahtzee.Domain
 {
     /// <summary>
     /// A Yahtzee game instance.

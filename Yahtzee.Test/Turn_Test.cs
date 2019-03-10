@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using Yahtzee.Models;
+using Yahtzee.Domain;
 
 namespace Yahtzee.Test
 {

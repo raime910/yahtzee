@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Yahtzee.Models
+namespace Yahtzee.Domain
 {
     /// <summary>
     /// Represents a single turn that encapsulates multiple rolls.
