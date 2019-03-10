@@ -113,7 +113,7 @@ namespace Yahtzee.Domain
                     die.Roll();
 
                     /* Add result of this roll within the collection
-                     * which be later then added into the dictionary
+                     * which be later then added into the dictionary.
                      */
                     values.Add(die.Value);
                 }
@@ -127,6 +127,8 @@ namespace Yahtzee.Domain
             {
                 Console.WriteLine($"This turn has reached its max roll count or has no more dice left to roll.");
             }
+
+            Console.WriteLine($"Player rolled {string.Join(",", values.OrderBy(x => x))}.");
 
             return values;
         }
@@ -146,24 +148,15 @@ namespace Yahtzee.Domain
 
             if (this._resultsPerRoll.Any())
             {
-                // Setup grouping for this roll.
-                var query = from value in this._resultsPerRoll.ElementAt(this.RollCount - 1).Value
-                            group value by value into grouping // Set grouping by die value
-                            let groupCount = grouping.Count()  // Count each item per grouping
-                            orderby groupCount descending      // Set result order by desc
-                            select new                         // Create a new anonymous object that will hold each count per grouping
-                            {
-                                value = grouping.Key,
-                                count = groupCount
-                            };
+                var grouping = this.GetRollGroupings(this.RollCount - 1).ToList();
 
                 // Identify max occurence within the collection of values from the first roll.
-                var maxScore = query.Select(x => x.count).Max();
+                var maxScore = grouping.Select(x => x.Count).Max();
 
                 // Return the value(s) with the most number of occurences.
-                var result = query
-                    .Where(x => x.count == maxScore)
-                    .Select(x => x.value)
+                var result = grouping
+                    .Where(x => x.Count == maxScore)
+                    .Select(x => x.Value)
                     .OrderBy(x => x)
                     .ToList();
 
@@ -174,6 +167,27 @@ namespace Yahtzee.Domain
 
             // Avoid returning null to prevent possible null reference exceptions
             return new List<int>();
+        }
+
+        /// <summary>
+        /// Gets the roll groupings.
+        /// </summary>
+        /// <param name="rollCount">The roll count.</param>
+        /// <returns></returns>
+        private IEnumerable<RollGrouping> GetRollGroupings(int rollCount)
+        {
+            // Setup grouping for this roll.
+            var query = from value in this._resultsPerRoll.ElementAt(rollCount).Value
+                        group value by value into grouping  // Set grouping by die value
+                        let groupCount = grouping.Count()   // Count each item per grouping
+                        orderby groupCount descending       // Set result order by desc
+                        select new RollGrouping             // Create a new anonymous object that will hold each count per grouping
+                        {
+                            Value = grouping.Key,
+                            Count = groupCount
+                        };
+
+            return query;
         }
 
         /// <summary>
@@ -205,11 +219,44 @@ namespace Yahtzee.Domain
         /// <returns>The calculated score based on user's pick (die value).</returns>
         public int GetScore()
         {
+            return this.Pick == 0
+                ? ComputeScoreBySeries()
+                : ComputeScoreByPick();
+        }
+
+        /// <summary>
+        /// Computes the score by pick.
+        /// </summary>
+        /// <returns></returns>
+        private int ComputeScoreByPick()
+        {
             var score = 0;
 
             foreach (var rollResult in this._resultsPerRoll)
             {
                 score += rollResult.Value.Count(x => x == this.Pick);
+            }
+
+            return score;
+        }
+
+        /// <summary>
+        /// Computes the score by series.
+        /// </summary>
+        /// <returns></returns>
+        private int ComputeScoreBySeries()
+        {
+            var score = 0;
+
+            for (int i = 0; i < this._resultsPerRoll.Count; i++)
+            {
+                var grouping = this.GetRollGroupings(i).ToList();
+                var max = grouping.Select(x => x.Count).Max();
+
+                if (score < max)
+                {
+                    score = max;
+                }
             }
 
             return score;

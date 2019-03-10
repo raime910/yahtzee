@@ -93,16 +93,21 @@ namespace Yahtzee.Domain
             this.State = GameState.Playing;
 
             Console.WriteLine("The game has started!");
+            Console.WriteLine(Environment.NewLine);
 
             foreach (var player in this.Players)
             {
-                Console.WriteLine($"[{player.Name}]=========================================");
+                Console.WriteLine($"*****[{player.Name}]*****");
+
                 while (player.Turn.CanRoll)
                 {
                     player.ExecuteTurn(setPick);
                 }
-                Console.WriteLine($"Pick: {player.Turn.Pick}");
+
+                var pick = player.Turn.Pick == 0 ? "x" : player.Turn.Pick.ToString();
+                Console.WriteLine($"Pick: {pick}");
                 Console.WriteLine($"Total Score: {player.GetCurrentTurnScore()}");
+                Console.WriteLine(Environment.NewLine);
             }
         }
 
@@ -110,14 +115,28 @@ namespace Yahtzee.Domain
         /// Identifies the winner.
         /// </summary>
         /// <returns></returns>
-        public Player IdentifyWinner()
+        public void AnnounceWinner()
         {
-            // Find the winner by looking at the current turn
-            return this.Players.Aggregate(
-                (player1, player2) =>
-                    player1.GetCurrentTurnScore() > player2.GetCurrentTurnScore()
-                        ? player1
-                        : player2);
+            var highScore = this.Players.Max(x => x.GetCurrentTurnScore());
+            var highScoringPlayers = this.Players.Where(x => x.GetCurrentTurnScore() == highScore).ToList();
+
+            // There's a tie
+            if (highScoringPlayers.Count() > 1)
+            {
+                // Filter out computer players
+                highScoringPlayers = highScoringPlayers.Where(x => x.IsComputer == false).ToList();
+
+                if (highScoringPlayers.Count() > 1)
+                {
+                    Console.WriteLine($"The winners are {string.Join(", ", highScoringPlayers.SelectMany(x => x.Name))}! Congratulations!");
+                }
+                else
+                {
+                    Console.WriteLine($"Congratulations {highScoringPlayers.First().Name}! You are the winner!");
+                }
+            }
+
+            this.State = GameState.Finished;
         }
 
         #endregion Methods

@@ -12,24 +12,20 @@ namespace Yahtzee
         /// <param name="args">The arguments.</param>
         private static void Main(string[] args)
         {
+            // Create a new instance of the game.
             var game = new Game();
 
+            // Setup players here...
             game.Initialize(new[] { "John" }, new[] { "Jane" });
 
+            Console.WriteLine($"Press any key to start the game...");
+            Console.ReadKey();
+            Console.WriteLine(Environment.NewLine);
+
             game.Play((turn) => { return Console.ReadLine(); });
+            game.AnnounceWinner();
 
             Console.ReadKey();
-        }
-
-        /// <summary>
-        /// Setups the player instances.
-        /// </summary>
-        /// <param name="humansCount">The humans count.</param>
-        /// <param name="computerCount">The computer count.</param>
-        /// <returns></returns>
-        private static List<Player> SetupPlayerInstances(int humansCount, int computerCount)
-        {
-            throw new NotImplementedException();
         }
     }
 }

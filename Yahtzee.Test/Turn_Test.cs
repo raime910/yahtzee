@@ -85,7 +85,7 @@ namespace Yahtzee.Test
         }
 
         [TestMethod]
-        public void Turn_RollAndGetScore_SouldReturnAScore()
+        public void Turn_RollAndGetScoreWihtPick_SouldReturnAScore()
         {
             var turn = new Turn();
 
@@ -99,6 +99,27 @@ namespace Yahtzee.Test
 
             var pick = turn.GetAvailablePicks().First();
             turn.SetPick(pick);
+
+            turn.RollDice();
+            turn.RollDice();
+
+            Assert.IsTrue(turn.GetScore() > 0);
+        }
+
+        [TestMethod]
+        public void Turn_RollAndGetScoreNoPick_SouldReturnAScore()
+        {
+            var turn = new Turn();
+
+            turn.Dice.Add(new Die());
+            turn.Dice.Add(new Die());
+            turn.Dice.Add(new Die());
+            turn.Dice.Add(new Die());
+            turn.Dice.Add(new Die());
+
+            turn.RollDice();
+
+            var pick = turn.GetAvailablePicks().First();
 
             turn.RollDice();
             turn.RollDice();

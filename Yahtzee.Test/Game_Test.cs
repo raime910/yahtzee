@@ -39,7 +39,7 @@ namespace Yahtzee.Test
         }
 
         [TestMethod]
-        public void Game_Start()
+        public void Game_Playing()
         {
             var game = new Game();
 
@@ -51,6 +51,23 @@ namespace Yahtzee.Test
 
             Assert.IsTrue(game.Players.Count == 2);
             Assert.IsTrue(game.State == GameState.Playing);
+        }
+
+        [TestMethod]
+        public void Game_Finish()
+        {
+            var game = new Game();
+
+            game.Initialize(new[] { "John", "Jane" });
+
+            game.Play((turn) =>
+            {
+                return turn.GetAvailablePicks().First().ToString();
+            });
+
+            game.AnnounceWinner();
+
+            Assert.IsTrue(game.State == GameState.Finished);
         }
     }
 }
